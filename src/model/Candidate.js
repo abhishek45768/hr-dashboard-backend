@@ -38,6 +38,18 @@ const CandidateSchema = new mongoose.Schema({
     enum: ['New', 'Selected', 'Rejected'],
     default: 'New'
   },
+   department: {
+    type: String,
+
+  },
+  joinDate: {
+    type: Date,
+ 
+  },
+  profileImage: {
+    type: String,
+    default: "default-profile.jpg",
+  },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',

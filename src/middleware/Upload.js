@@ -2,37 +2,6 @@ const path = require('path');
 const fs = require('fs');
 const ErrorResponse = require('../utils/errorResponse');
 
-// exports.uploadProfileImage = async (req, res, next) => {
-//   try {
-//     if (!req.files || !req.files.profileImage) {
-//       return next();
-//     }
-
-//     const file = req.files.profileImage;
-
-//     if (!file.mimetype.startsWith('image')) {
-//       return next(new ErrorResponse('Please upload an image file', 400));
-//     }
-
-//     if (file.size > 1000000) {
-//       return next(new ErrorResponse('Please upload an image less than 1MB', 400));
-//     }
-
-//     file.name = `profile_${req.user.id}${path.parse(file.name).ext}`;
-
-//     file.mv(`./uploads/profiles/${file.name}`, async err => {
-//       if (err) {
-//         console.error(err);
-//         return next(new ErrorResponse('Problem with file upload', 500));
-//       }
-
-//       req.body.profileImage = file.name;
-//       next();
-//     });
-//   } catch (error) {
-//     next(error);
-//   }
-// };
 
 
 exports.uploadProfileImage = async (req, res, next) => {

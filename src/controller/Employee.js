@@ -90,7 +90,7 @@ exports.updateEmployee = async (req, res, next) => {
       return next(new ErrorResponse("Not authorized to update employee details", 401))
     }
 
-    employee = await Employee.findByIdAndUpdate(req.params.id, req.body, {
+    employee = await Candidate.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
     })
