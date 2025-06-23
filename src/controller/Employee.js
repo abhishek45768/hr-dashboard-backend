@@ -9,7 +9,7 @@ const { default: mongoose } = require("mongoose")
 exports.getEmployees = async (req, res, next) => {
   try {
     const id = req.user.id
-    const {  department, search ,position} = req.query
+    const {  department, search ,position,presentstatus} = req.query
     const query = {
       createdBy: new mongoose.Types.ObjectId(id)
     }
@@ -18,7 +18,9 @@ exports.getEmployees = async (req, res, next) => {
     if(position){
       query.position=position
     }
-
+ if(presentstatus){
+      query.present_status=presentstatus
+    }
     if (department) {
       query.department = department
     }
@@ -167,4 +169,34 @@ exports.downloadResume = async (req, res, next) => {
   } catch (error) {
     next(error)
   }
+}
+
+
+exports.updateAttendenceStatus = async (req, res, next) => {
+    try {
+        const { status } = req.body
+
+        if (!["Present","Absent"].includes(status)) {
+            return next(new ErrorResponse("Invalid status value", 400))
+        }
+
+        let candidate = await Candidate.findById(req.params.id)
+
+        if (!candidate) {
+            return next(new ErrorResponse(`Candidate not found with id of ${req.params.id}`, 404))
+        }
+
+        if (req.user.role !== "HR") {
+            return next(new ErrorResponse("Not authorized to update candidate status", 401))
+        }
+
+        candidate = await Candidate.findByIdAndUpdate(req.params.id, {present_status: status }, { new: true, runValidators: true })
+
+        res.status(200).json({
+            success: true,
+            data: candidate,
+        })
+    } catch (error) {
+        next(error)
+    }
 }

@@ -38,6 +38,11 @@ const CandidateSchema = new mongoose.Schema({
     enum: ['New', 'Selected', 'Rejected'],
     default: 'New'
   },
+  present_status: {
+    type: String,
+    enum: ['Present', 'Absent'],
+    default: 'Present'
+  },
    department: {
     type: String,
 

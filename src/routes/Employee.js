@@ -7,6 +7,7 @@ const {
   deleteEmployee,
   createEmployeeAccount,
   downloadResume,
+  updateAttendenceStatus,
 } = require("../controller/Employee")
 
 const { protect, authorize } = require("../middleware/Auth")
@@ -23,6 +24,8 @@ router
   .delete(protect, authorize("HR"), deleteEmployee)
 
 router.post("/createEmployee", protect, authorize("HR"), uploadProfileImage, uploadResume, createEmployee)
-router.get("/downloadResume/:id", protect, downloadResume)
+router.get("/downloadResume/:id", protect, downloadResume);
+router.patch("/updateAttendenceStatus/:id", protect, authorize("HR"), updateAttendenceStatus)
+
 
 module.exports = router

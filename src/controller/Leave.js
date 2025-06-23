@@ -4,6 +4,7 @@ const Attendance = require('../model/Attendence');
 const ErrorResponse = require('../utils/errorResponse');
 const path = require('path');
 const fs = require('fs');
+const Candidate = require('../model/Candidate');
 
 exports.getLeaves = async (req, res, next) => {
   try {
@@ -92,7 +93,7 @@ exports.createLeave = async (req, res, next) => {
   try {
     req.body.createdBy = req.user.id;
 
-    const employee = await Employee.findById(req.body.employee);
+    const employee = await Candidate.findById(req.body.employee);
     if (!employee) {
       return next(new ErrorResponse('Employee not found', 404));
     }
