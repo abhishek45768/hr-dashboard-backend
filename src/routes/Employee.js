@@ -11,7 +11,7 @@ const {
 } = require("../controller/Employee")
 
 const { protect, authorize } = require("../middleware/Auth")
-const { uploadProfileImage, uploadResume } = require("../middleware/Upload")
+
 
 const router = express.Router()
 
@@ -20,11 +20,10 @@ router.route("/getEmployees").get(protect, getEmployees)
 router
   .route("/employee/:id")
   .get(getEmployee)
-  .put(protect, authorize("HR"), uploadProfileImage, uploadResume, updateEmployee)
+  .put(protect, authorize("HR"), updateEmployee)
   .delete(protect, authorize("HR"), deleteEmployee)
 
-router.post("/createEmployee", protect, authorize("HR"), uploadProfileImage, uploadResume, createEmployee)
-router.get("/downloadResume/:id", protect, downloadResume);
+router.post("/createEmployee", protect, authorize("HR"), createEmployee)
 router.patch("/updateAttendenceStatus/:id", protect, authorize("HR"), updateAttendenceStatus)
 
 

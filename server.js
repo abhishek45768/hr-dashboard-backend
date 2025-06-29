@@ -18,21 +18,10 @@ const { connectDB } = require("./src/config/mongo");
 
 const app = express();
 
-// const corsOptions = {
-//   origin: "*",
-//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//   preflightContinue: false,
-//   optionsSuccessStatus: 204,
-//   allowedHeaders: "Content-Type, Authorization",
-// };
 
 app.use(cookieParser());
-// app.use(cors({
-//     origin: process.env.CLIENT_URL,
-//     credentials: true,
-// }));
+
 app.use(cors({
-    // origin: "https://hr-dashboard-88164.web.app/",
     origin: "*",
     credentials: true,
 }));
@@ -73,13 +62,11 @@ app.use((req, res, next) => {
 app.use(errorHandler);
 
 app.listen(process.env.PORT || 5000, () => {
-    console.log("****************************");
+    
     console.log(
-        `*    Starting ${process.env.ENV === "local" ? "HTTP" : "HTTPS"} Server`
+        `Starting ${process.env.ENV === "local" ? "HTTP" : "HTTPS"} Server`
     );
-    console.log(`*    Port: ${process.env.PORT || 5000}`);
-    console.log(`*    NODE_ENV: ${process.env.NODE_ENV}`);
-    console.log(`*    Database: MongoDB`);
-    console.log(`*    DB Connection: OK\n****************************\n`);
+    console.log(`Port: ${process.env.PORT || 5000}`);
+   
 });
 connectDB()

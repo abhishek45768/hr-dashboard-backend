@@ -98,21 +98,7 @@ exports.createLeave = async (req, res, next) => {
       return next(new ErrorResponse('Employee not found', 404));
     }
 
-    // const today = new Date();
-    // today.setHours(0, 0, 0, 0);
-
-    // const attendance = await Attendance.findOne({
-    //   employee: req.body.employee,
-    //   date: {
-    //     $gte: today,
-    //     $lt: new Date(today.getTime() + 24 * 60 * 60 * 1000)
-    //   },
-    //   status: 'Present'
-    // });
-
-    // if (!attendance && req.user.role === 'Employee') {
-    //   return next(new ErrorResponse('Only present employees can take leaves', 400));
-    // }
+  
 
     const leave = await Leave.create(req.body);
     console.log("leave : ", leave);

@@ -17,7 +17,7 @@ const router = express.Router();
 router.use(protect);
 
 router.route('/getleave').get(getLeaves)
-router.route('/createLeave').post(uploadLeaveDocument,createLeave);
+router.route('/createLeave').post(createLeave);
 router.get('/getApprovedLeave', getApprovedLeaves);
 
 router.route('/leave/:id')
@@ -25,6 +25,6 @@ router.route('/leave/:id')
   .delete(deleteLeave);
 
 router.put('/updateleave/:id', authorize('HR'), updateLeaveStatus);
-router.get('/downloadleave/:id', downloadLeaveDocument);
+
 
 module.exports = router;
