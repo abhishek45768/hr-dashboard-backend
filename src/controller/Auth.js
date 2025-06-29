@@ -56,3 +56,29 @@ exports.login = async (req, res, next) => {
 
 
 
+const sendTokenResponse = (user, statusCode, res) => {
+  const token = user.getSignedJwtToken();
+  const hours = parseInt(process.env.JWT_COOKIE_EXPIRE) || 1;
+
+  const options = {
+    expires: new Date(Date.now() + hours * 60 * 60 * 1000),
+    httpOnly: true,
+    secure: true,
+    sameSite: 'None'
+  };
+
+  if (process.env.NODE_ENV === 'production') {
+    options.secure = true;
+  }
+
+  return res
+    .status(statusCode)
+    .cookie('token', token, options)
+    .json({
+      message : "User created successfully",
+      success: true,
+      token,
+      data: user,
+      expireBy : options.expires
+    });
+};
